@@ -1,0 +1,21 @@
+.space-container {
+	$sprite-height: 149px;
+	$total-frame: 7;
+	position: absolute;
+	left: 50%;
+	bottom: 8rem;
+	transform: translate(-50%);
+	z-index: 1;
+	.space-craft {
+		width     : 100px;
+		height    : $sprite-height;
+		background: url($img_path + 'SpaceCraft-sfbc4385e87.png') 0 0 no-repeat;
+		margin: 0 auto;
+		animation: spaceCraftAnim 1s steps($total-frame) infinite;
+	}
+	@keyframes spaceCraftAnim {
+		100% {
+			background-position: 0 -1 * $sprite-height * $total-frame;
+		}
+	}
+}

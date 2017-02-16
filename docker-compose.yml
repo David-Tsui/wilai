@@ -1,0 +1,6 @@
+version: '2'
+services:
+  wilai:
+    build: .
+    ports:
+    - "3000:3000"

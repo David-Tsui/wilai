@@ -1,0 +1,116 @@
+.container {
+  padding-top: 100px;
+  .main-column {
+    @include EasyCenter();
+  }
+}
+
+.tech-container {
+  flex: 1;
+  @include EasyCenter();
+  $title_w: 180px;
+  $title_h: 41px;
+  $image_w: 270px;
+  $image_h: 244px;
+  .segment {
+    flex: 1;
+    @include EasyCenter($col: true);
+    .title, .image {
+      display: block;
+      background-image: url($img_path + 'Design_270-s4f3ba2c5af.png');
+    }
+    .title {
+      width: $title_w;
+      height: $title_h;
+    }
+    .image {
+      width: $image_w;
+      height: $image_h;
+    }
+    p {
+      font-size: 1.5rem;
+      line-height: 2.5rem;
+      letter-spacing: 5px;
+    }
+  }
+  &.left {
+    .segment:first-child {
+      .title {
+        background-position: 0 -1 * ($image_h);
+      }
+      .image {
+        background-position: 0 0;
+      }
+    }
+    .segment:last-child {
+      .title {
+        background-position: 0 -1 * ($image_h * 2 + $title_h);
+      }
+      .image {
+        background-position: 0 -1 * ($image_h + $title_h);
+      }
+    }
+  }
+
+  &.right {
+    .segment:first-child {
+      .title {
+        background-position: 0 -1 * ($image_h * 3 + $title_h * 2);
+      }
+      .image {
+        background-position: 0 -1 * ($image_h * 2 + $title_h * 2);
+      }
+    }
+    .segment:last-child {
+      .title {
+        background-position: 0 -1 * ($image_h * 4 + $title_h * 3);
+      }
+      .image {
+        background-position: 0 -1 * ($image_h * 3 + $title_h * 3);
+      }
+    }
+  }
+}
+
+@media (max-width: 1200px) {
+  .tech-container {
+    .segment {
+      flex: 1;
+      // width: 50vw;
+      transform: scale(.85);
+    }
+  }
+}
+
+@media (max-width: 990px) {
+  .container {
+    padding-top: 175px;
+    padding-bottom: 100px;
+  }
+  .main-column {
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 5rem;
+  }
+}
+
+@media (max-width: 550px) {
+  .tech-container {
+    width: 100%;
+    height: 260px;
+    .segment {
+      flex: 1;
+      width: 50vw;
+      transform: scale(.5);
+      &:first-child {
+        padding-left: 2rem;
+      }
+      &:last-child {
+        padding-right: 2rem;
+      }
+      p {
+        white-space: pre;
+      }
+    }
+  }
+}

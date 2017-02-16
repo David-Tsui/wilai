@@ -1,0 +1,18 @@
+mixin projects()
+	section#projects-pc(data-scrollbar scrollbar class="projects")
+		.scroll-content
+			.projects-wrapper
+				.projects-content
+					ul.projects-list
+						li.project-item#project-template
+							a.project-link
+								img.thumbnail(src="")
+								.info
+									span.title
+										| 測試
+		aside.scrollbar-track.scrollbar-track-y.show
+			.scrollbar-thumb.scrollbar-thumb-y
+	section#projects-mb(class="projects")
+		.projects-wrapper
+			.projects-content
+				ul.projects-list

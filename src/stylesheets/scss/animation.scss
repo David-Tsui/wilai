@@ -1,0 +1,64 @@
+/* animation */
+
+.animated {
+  &.fast {
+    animation-duration: 1s;
+    animation-delay: 0s;
+  }
+  &.slow {
+    animation-duration: 3s;
+    animation-delay: 1s;
+  }
+  &.reallyslow {
+    animation-duration: 6s;
+    animation-delay: 3s;
+  }
+  &.delay-s {
+    animation-delay: 1s;
+  }
+  &.delay-m {
+    animation-delay: 1.6s;
+  }
+  &.delay-l {
+    animation-delay: 2.4s;
+  }
+}
+
+@keyframes selfRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+$sprite-height: 450px;
+$total-frame: 45;
+
+@keyframes play {
+  100% {
+    background-position: 0 -1 * $sprite-height * $total-frame;
+  }
+}
+
+@keyframes uil-ripple {
+  0% {
+    width: 0;
+    height: 0;
+    opacity: 0;
+    margin: 0 0 0 0;
+  }
+  33% {
+    width: 44%;
+    height: 44%;
+    margin: -22% 0 0 -22%;
+    opacity: 1;
+  }
+  100% {
+    width: 88%;
+    height: 88%;
+    margin: -44% 0 0 -44%;
+    opacity: 0;
+  }
+}

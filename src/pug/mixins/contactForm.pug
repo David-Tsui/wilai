@@ -1,0 +1,19 @@
+mixin contactForm()
+	form#contact-form
+		h3.header
+			span 聯絡我們
+			a.mail(href="mailto:wilaianimation@gmail.com") wilaianimation@gmail.com
+		.field
+			label(for="contactName") 您的大名
+			input(type="text" name="contactName" placeholder="回信時將以此稱呼聯絡您..." required)
+		.field
+			label(for="contactEmail") 您的電子郵件
+			input(type="email" name="contactEmail" placeholder="請輸入您的email..." required)
+		//- .field
+		//- 	label(for="contactTitle") 標題
+		//- 	input(type="text" name="contactTitle")
+		.field
+			label(for="contactMessage") 內容
+			textarea(rows="10" name="contactMessage" placeholder="請輸入您的洽詢內容，上限為100個字..." required)
+		.action
+			input(type="submit" value="發送")

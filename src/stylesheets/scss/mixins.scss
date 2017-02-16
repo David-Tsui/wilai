@@ -1,0 +1,42 @@
+// some useful web mixin
+// Todo...
+
+// some custom mixin
+@mixin EasyCenter($h: true, $v: true, $inline: false, $col: false) {
+	position: relative;
+	@if $inline { display: inline-flex; }
+	@else { display: flex; }
+
+	@if $h   { justify-content: center; }
+	@if $v   { align-items: center; }
+	@if $col { flex-direction: column; }
+}
+
+@mixin AbsElem($pseudo: false, $fill: false, $top-left: false, $top-right: false, $bottom-left: false, $bottom-right: false) {
+	@if $pseudo {
+		content : '';
+	}
+	position: absolute;
+	@if $fill {
+		top   : 0;
+		left  : 0;
+		bottom: 0;
+		right : 0;
+	} @else if $top-left {
+		top   : 0;
+		left  : 0;
+	} @else if $top-right {
+		top   : 0;
+		right : 0;
+	} @else if $bottom-left {
+		bottom: 0;
+		left  : 0;
+	} @else if $bottom-right {
+		bottom: 0;
+		right : 0;
+	}
+}
+
+@mixin webFont() {
+	font-family: 'Roboto', 'Noto Sans TC', "文泉驛正黑", "WenQuanYi Zen Hei", "儷黑Pro", "LiHei Pro", "微軟正黑體", "Microsoft JhengHei", '新細明體', sans-serif;
+}

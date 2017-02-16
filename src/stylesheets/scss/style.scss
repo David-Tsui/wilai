@@ -1,0 +1,354 @@
+@import 'variable';
+@import 'animation';
+@import 'mixins';
+@import 'sprites/spaceCraft';
+
+* {
+  box-sizing: border-box;
+  position: relative;
+}
+
+body {
+  background: #fafafa;
+  @include webFont();
+  height: 100%;
+  overflow: hidden;
+  &.initial {
+    height: 100vh;
+  }
+}
+
+h1, h2, h3, h4,
+*.header {
+  margin: 10px 0;
+  font-weight: 700;
+}
+
+h1 {
+  font-size: 3rem;
+}
+
+h2 {
+  font-size: 2.4rem;
+}
+
+h3 {
+  font-size: 1.8rem;
+}
+
+h4 {
+  font-size: 1.2rem;
+}
+
+a {
+  text-decoration: none;
+  outline: 0;
+}
+
+p {
+  line-height: 1.5rem;
+}
+
+input, textarea {
+  @include webFont();
+  &:focus, &:active {
+    outline: none;
+  }
+}
+
+textarea {
+  resize: none;
+}
+
+#loading {
+  position: absolute;
+  background: #000;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  z-index: 999;
+}
+
+.uil-ripple-css {
+  background: none;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 200px;
+  div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: 0;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    border-radius: 50%;
+    border-width: 12px;
+    border-style: solid;
+    animation: uil-ripple 2s ease-out infinite;
+    &:nth-of-type(1) {
+      border-color: #afafb7;
+    }
+    &:nth-of-type(2) {
+      // border-color: #5cffd6;
+      border-color: #5ccdff;
+      animation-delay: 1s;
+    }
+  }
+}
+
+#particle-js {
+  @include AbsElem($fill: true);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.top-static-bg {
+  $scale: 1;
+  @include AbsElem();
+  display: block;
+  background-image: url($img_path + "top_logo.png");
+  background-position: 0 -125px;
+  background-repeat: no-repeat;
+  width: 273px * $scale;
+  height: 165px * $scale;
+  top: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  z-index: 2;
+  &::before {
+    @include AbsElem($pseudo: true);
+    display: block;
+    background-image: url($img_path + "top_logo.png");
+    background-position: 0 -290px;
+    background-repeat: no-repeat;
+    width: 273px * $scale;
+    height: 165px * $scale;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    transition: .85s;
+    opacity: 0;
+  }
+  &.bright::before {
+    opacity: 1;
+  }
+  .image {
+    display: block;
+    position: absolute;
+    background-image: url($img_path + "top_logo.png");
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    width: 196px * $scale;
+    height: 125px * $scale;
+    top: 0;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    padding: 0 !important;
+    img {
+      width: 100%;
+    }
+  }
+}
+
+$menu-height: 3.5rem;
+#menu {
+  display : flex;
+  position: absolute;
+  left    : 0;
+  bottom  : 0;
+  right   : 0;
+  z-index : 99;
+  opacity: 0;
+  transform: translate(0,56px);
+  li {
+    flex: 1;
+    @include EasyCenter();
+    text-align: center;
+    // @include linear-gradient(#474747,#000);
+    background: #10121b;
+    height: $menu-height;
+    &::before {
+      @include AbsElem($pseudo: true);
+      width: 0;
+      height: 0;
+      left: 50%;
+      bottom: 100%;
+      margin-left: -20px;
+      opacity: 0;
+      border: solid transparent;
+      border-bottom-color: #10121b;
+      border-width: 20px;
+      pointer-events: none;
+    }
+    a {
+      display: block;
+      @include AbsElem($fill: true);
+      width: 100%;
+      line-height: $menu-height;
+      font-size: 1.25rem;
+      color: #fff;
+    }
+    &.active {
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+  &.bright {
+    li {
+      background: #fff;
+    }
+  }
+}
+
+.section {
+  .fp-tableCell {
+    position: relative;
+  }
+  .container {
+    position: relative;
+    max-width: 100%;
+    z-index: 2;
+  }
+  &:nth-child(odd) {
+    background: url($img_path + "bg_light.png") 0 0 no-repeat;
+    background-size: cover;
+    color: #444;
+  }
+  &:nth-child(even) {
+    background: url($img_path + "bg_dark.png") 0 0 no-repeat;
+    background-size: cover;
+    color: #fff;
+  }
+  &#page1 {
+    @import "pages/page1";
+    .fp-tableCell {
+      overflow: hidden;
+    }
+  }
+  &#page2 {
+    @import "pages/page2";
+  }
+  &#page3 {
+    @import "pages/page3";
+  }
+  &#page4 {
+    @import "pages/page4";
+    .fp-tableCell {
+      overflow: hidden;
+    }
+  }
+  &#page5 {
+    @import "pages/page5";
+  }
+}
+
+iframe {
+  overflow: hidden;
+}
+
+.embededchat-facebook-show-image-container {
+  height: $menu-height !important;
+}
+
+#embededchat-facebook-container {
+  left: auto !important;
+  right: 1rem !important;
+}
+
+#embededchat-facebook-show-button {
+  display: block !important;
+  position: fixed;
+  left: auto;
+  right: 0;
+  width: $menu-height !important;
+  transition: .4s;
+  &.active {
+    right: 1rem;
+  }
+}
+
+#embedded-chat-facebook-side-text {
+  display: none;
+}
+
+#embededchat-facebook-logo {
+  width: 36px !important;
+  height: 36px !important;
+  background-size: cover !important;
+  margin-top: 4px !important;
+}
+
+.mejs__overlay-button {
+  background: url($img_path + "mejs-controls.svg") no-repeat;
+}
+.mejs__overlay-loading-bg-img {
+  background: transparent url($img_path + "mejs-controls.svg") -160px -40px no-repeat;
+}
+.mejs__button > button {
+  background: transparent url($img_path + "mejs-controls.svg") no-repeat;
+}
+
+@media (min-width: 550px) {
+  .container {
+    width: 100% !important;
+  }
+  .column, .columns {
+    min-height: 1px;
+  }
+}
+
+@media (max-width: 768px) {
+  .uil-ripple-css {
+    width: 160px;
+    height: 160px;
+    div {
+      border-width: 10px;
+    }
+  }
+  .top-static-bg {
+    transform: scale(.75);
+    transform-origin: top;
+  }
+  #menu {
+    &.typing {
+      display: none;
+    }
+    li {
+      height: 3rem;
+      a {
+        font-size: 1rem;
+        line-height: 3rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 550px) {
+  .uil-ripple-css {
+    width: 120px;
+    height: 120px;
+    div {
+      border-width: 8px;
+    }
+  }
+  #menu {
+    li {
+      a {
+        font-size: .85rem;
+      }
+    }
+  }
+  .top-static-bg {
+    transform: scale(.5);
+    transform-origin: top;
+  }
+}
