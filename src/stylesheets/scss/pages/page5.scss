@@ -1,29 +1,10 @@
-@media (min-width: 768px) {
-	.container {
-		padding-top: 100px !important;
-	}
+.container {
+	padding-top: 100px !important;
 }
 
-// #map-container {
-// 	width: 100%;
-// 	height: 100%;
-// 	min-height: 300px;
-// 	.gm-style>div>div:nth-child(4)>div:nth-child(4)>div {
-// 		text-align: center;
-// 	}
-// 	.gm-style-iw {
-// 		.location {
-// 			height: 24px;
-// 			line-height: 24px;
-// 			padding: 0;
-// 			font-size: 18px;
-// 			color: #222;
-// 		}
-// 		&+div {
-// 			display: none !important;
-// 		}
-// 	}
-// }
+h1.title .line {
+  background-color: #222;
+}
 
 #contact-form {
 	font-size: 1.25rem;
@@ -103,12 +84,6 @@
 }
 
 @media (max-width: 768px) {
-	// #map-container .gm-style-iw {
-	// 	.location {
-	// 		height: 24px;
-	// 		line-height: 24px;
-	// 	}
-	// }
 	.row.reverse-order {
 		@include EasyCenter($col: true, $h: false);
 		margin-left: -15px;
@@ -137,26 +112,14 @@
 		padding-top: 60px;
 		padding-bottom: 50px;
 	}
-	// #map-container {
-	// 	min-height: 280px;
-	// 	.gm-style-iw {
-	// 		.location {
-	// 			height: 12px;
-	// 			line-height: 12px;
-	// 			font-size: 12px;
-	// 		}
-	// 	}
-	// }
 
 	#contact-form {
 		font-size: 1rem;
 		.header {
 			font-size: 1.5rem;
-			span {
-				display: block;
-			}
 			.mail {
-				margin-left: 0;
+				margin-left: 4px;
+				font-size: 1rem;
 			}
 		}
 		.field {

@@ -1,5 +1,5 @@
-.main-column {
-	height: 100vh;
+.container {
+	padding-top: 6rem;
 }
 
 .projects {
@@ -147,27 +147,26 @@
 }
 
 .video-container {
-	@include EasyCenter();
+	@include EasyCenter($v: false);
 	height: 100%;
+	opacity: 0;
+	.mejs__controls {
+		bottom: -540px;
+	}
 }
 
 #demo-video {
-	// width: 100%;
-	// height: 100%;
-	opacity: 0;
-	// transform: scale(0);
+	// opacity: 0;
 }
 
 .video-description {
-	display: flex;
-	align-items: center;
-	@include AbsElem($top-right: true);
-	bottom: 0;
-	width: 400px;
 	background: rgba(0,0,0,.4);
-	margin-top: -3rem;
-	padding: 2rem 1.8rem 10rem;
-	font-size: 1rem;
+	min-width: 450px;
+	max-width: 450px;
+	margin-left: 1rem;
+	padding: 1.25rem 1.5rem;
+	font-size: 1.25rem;
+  letter-spacing: 1px;
 	.title {
 		min-height: 45px;
 		padding-bottom: 1rem;
@@ -185,7 +184,7 @@
 @media (max-width: 1200px) {
 	.container {
 		// padding-top: 200px !important;
-		.aside-column {
+		.column:not(.main-column) {
 			display: none;
 		}
 	}
@@ -264,6 +263,8 @@
 		}
 		.video-description {
 			background: linear-gradient(50deg, rgba(200,200,200,.4),rgba(0,0,0,.4));
+			min-width: 100%;
+			max-width: 100%;
 			min-height: 160px;
 			max-height: 160px;
 			margin-left: 0;

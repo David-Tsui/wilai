@@ -5,11 +5,8 @@ include ../mixins/techTwoColumn
 include ../mixins/topImage
 include ../mixins/projects
 include ../mixins/demoVideo
-include ../mixins/demoVideoPrompt
-include ../mixins/spaceCraft
 
 block content
-	//- +spaceCraft()
 	+topImage()
 	#fullpage
 		.section#page1(data-anchor="index")
@@ -21,37 +18,42 @@ block content
 							.image-title.zh-tw
 							.image-title.en
 					.one.column
-		.section#page2(data-anchor="tech")
-			.container
+		.section#page2(data-anchor="service")
+			.container.service-container
 				.row
 					.two.columns
 					.eight.columns.main-column
-						.tech-container.left
-							.segment
-								.title
-								.image
-								p 2D動畫
-								p 3D動畫
-								p 影音剪輯
-							.segment
-								.title
-								.image
-								p APP
-								p 桌上型網頁
-								p 響應式網頁
-						.tech-container.right
-							.segment
-								.title
-								.image
-								p 商品攝影
-								p 影像優化
-								p 影音錄製
-							.segment
-								.title
-								.image
-								p 企業商標
-								p DM印刷
-								p 名片設計
+						h1.title
+							.source 多元服務，面面俱到
+							.dest
+							.line
+						.services
+							.left
+								.segment
+									.title
+									.image
+									p 2D動畫
+									p 3D動畫
+									p 影音剪輯
+								.segment
+									.title
+									.image
+									p APP
+									p 桌上型網頁
+									p 響應式網頁
+							.right
+								.segment
+									.title
+									.image
+									p 商品攝影
+									p 影像優化
+									p 影音錄製
+								.segment
+									.title
+									.image
+									p 企業商標
+									p DM印刷
+									p 名片設計
 					.two.columns
 		.section#page3(data-anchor="intro")
 			.container
@@ -59,16 +61,20 @@ block content
 					.one.column
 					.five.columns
 						.proc-container
+							h1.title
+								.source 明確流程，一氣呵成
+								.dest
+								.line
 							.proc-segment
-								img(src="./assets/images/proc/a.png" step="1")
+								img(src="./assets/images/proc/p1.png" step="1")
 							.proc-segment
-								img(src="./assets/images/proc/b.png" step="2")
+								img(src="./assets/images/proc/p2.png" step="2")
 							.proc-segment
-								img(src="./assets/images/proc/c.png" step="3")
+								img(src="./assets/images/proc/p3.png" step="3")
 							.proc-segment
-								img(src="./assets/images/proc/d.png" step="4")
+								img(src="./assets/images/proc/p4.png" step="4")
 							.proc-detail
-								img(src="./assets/images/proc/e.png")
+								img(src="./assets/images/proc/p5.png")
 								.msg(step='1')
 									.source
 										p.header 報價簽約
@@ -97,27 +103,76 @@ block content
 									.dest
 										p.header
 										p.content
+						.proc-container-mobile
+							h1.title
+								.source 明確流程，一氣呵成
+								.dest
+								.line
+							.detail
+								img(src="./assets/images/proc/p5.png")
+								.msg(step='1')
+									.source
+										p.header 報價簽約
+										p.content 保障雙方合作權益，訂定一套服務流程，有效管理各個設計專案。
+									.dest
+										p.header
+										p.content
+								.msg(step='2')
+									.source
+										p.header 需求討論
+										p.content 確實了解客戶需求並進行草圖提案，確立產品設計走向與品質。
+									.dest
+										p.header
+										p.content
+								.msg(step='3')
+									.source
+										p.header 設計製作
+										p.content 定期回報進度與修正。
+									.dest
+										p.header
+										p.content
+								.msg(step='4')
+									.source
+										p.header 準時交件
+										p.content 掌握時間進度與設計方向，準時交件，開心結案。
+									.dest
+										p.header
+										p.content
+							.segments
+								.segment
+									img(src="./assets/images/proc/p1.png" step="1")
+								.segment
+									img(src="./assets/images/proc/p2.png" step="2")
+								.segment
+									img(src="./assets/images/proc/p3.png" step="3")
+								.segment
+									img(src="./assets/images/proc/p4.png" step="4")
 					.five.columns
-						.intro-segment
-							h3.title 關於威萊  WiLai
-							p 「威萊動畫視覺設計有限公司」提供了高品質的動畫視覺效果，為您帶來的視覺生活的饗宴。
-							p 我們的服務特色產品動畫，視覺效果，動作設計，虛擬現實的研究開發。
-							p 並且提供企業識別 、網頁版面、活動文宣等各類平面視覺設計、影音應用之設計服務，
-								| 期待為您的創業團隊或公司企業創造新穎的品牌風格。
-						.intro-segment
-							h3.title 技術支援
-							+techCarousel()
-							+techTwoColumn()
+						.intro-container
+							h1.title
+								.source 關於威萊  WiLai
+								.dest
+								.line
+							.content
+								p 「威萊動畫視覺設計有限公司」提供了高品質的動畫視覺效果，為您帶來的視覺生活的饗宴。
+								p 我們的服務特色產品動畫，視覺效果，動作設計，虛擬現實的研究開發。
+								p 並且提供企業識別 、網頁版面、活動文宣等各類平面視覺設計、影音應用之設計服務，期待為您的創業團隊或公司企業創造新穎的品牌風格。
+						.tech-container
+							h1.title
+								.source 技術支援
+								.dest
+								.line
+							.content
+								+techCarousel()
+								+techTwoColumn()
 					.one.column
 		.section#page4(data-anchor="demo")
 			+projects()
 			.container
 				.row
-					//- .three.columns.aside-column
-					//- .six.columns.main-column
-			+demoVideo()
-					//- .three.columns.aside-column
-			+demoVideoPrompt()
+					.two.column
+					.ten.column.main-column
+						+demoVideo()
 		.section#page5.fp-normal-scroll(data-anchor="contact")
 			.container
 				.row.reverse-order

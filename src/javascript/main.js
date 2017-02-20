@@ -8,25 +8,65 @@ $(window).on('load', function() {
   };
   var tl = new TimelineLite({onComplete: callback});
   tl.to('#loading', 1, { opacity: 0, zIndex: -1 });
+
+  $('.chat-panel').click(function() {
+    $(this).hide(0);
+    $('.chat-box').show(0);
+  });
+
+  $('.chat-box-title').click(function() {
+    $('.chat-box').hide(0);
+    $('.chat-panel').show(0);
+  });
+});
+
+$(window).on('resize', function() {
+  VIEWPORT_WIDTH = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+  VIEWPORT_HEIGHT = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+  // if (VIEWPORT_WIDTH <= 768)
 });
 
 $(document).ready(function() {
+  var IS_PAGE2_ANIMATED = false;
   var IS_PAGE3_ANIMATED = false;
   var IS_PAGE4_ANIMATED = false;
   $('#fullpage').fullpage({
     menu: '#menu',
-    anchors: ['index', 'tech', 'intro', 'demo', 'contact'],
+    anchors: ['index', 'service', 'intro', 'demo', 'contact'],
     scrollingSpeed: 850,
     normalScrollElements: '#projects-pc, #projects-mb',
     scrollOverflow: true,
     onLeave: function(index, nextSlideIndex) {
       changeTopLogo(nextSlideIndex);
-      if (nextSlideIndex == 2) {
-        // pass
+      changeMenu(nextSlideIndex);
+      if (nextSlideIndex == 2 && !IS_PAGE2_ANIMATED) {
+        IS_PAGE2_ANIMATED = true;
+        var Page2Callback = function() { IS_PAGE2_ANIMATED = false; };
+        var tl = new TimelineLite({ onComplete: Page2Callback });
+        var title = document.querySelectorAll('.service-container h1.title .dest span');
+        var line = document.querySelectorAll('.service-container h1.title .line');
+        var service_segments = document.querySelectorAll('.service-container .segment');
+        if (VIEWPORT_WIDTH >= 768) {
+          tl.set(title, { opacity: 0 })
+            .set(service_segments, { opacity: 0, scale: .95 })
+            .set(line, { opacity: 0, scaleX: 0, transformOrigin: 'left' })
+            .staggerTo(title, .25, { opacity: 1, delay: 1 }, 0.075)
+            .to(line, .65, { opacity: 1, scaleX: 1 })
+            .staggerTo(service_segments, 1.25, { opacity: 1 }, .3)
+            .staggerTo(service_segments, .5, { scale: 1 }, .25, '-=2.05');
+        } else {
+          tl.set(title, { opacity: 0 })
+            .set(service_segments, { opacity: 0, scale: .55 })
+            .set(line, { opacity: 0, scaleX: 0, transformOrigin: 'left' })
+            .staggerTo(title, .25, { opacity: 1, delay: 1 }, 0.075)
+            .to(line, .65, { opacity: 1, scaleX: 1 })
+            .staggerTo(service_segments, 1.25, { opacity: 1 }, .3)
+            .staggerTo(service_segments, .5, { scale: .5 }, .25, '-=2.05');
+        }
       }
       if (nextSlideIndex == 3 && !IS_PAGE3_ANIMATED) {
         IS_PAGE3_ANIMATED = true;
-        var callback = function() {
+        var Page3Callback = function() {
           $('.proc-segment').addClass('hoverable');
           $('.proc-segment > img').mouseenter(function(e) {
             var step = $(e.target).attr('step');
@@ -36,26 +76,30 @@ $(document).ready(function() {
             TweenMax.to('.proc-detail .msg[step=' + step + '] .dest', .25, { opacity: 0 });
           })
         };
-        var tl = new TimelineLite({ onComplete: callback });
-        var proc_segments = document.getElementsByClassName('proc-segment');
-        var shape_duration = .5, msg_duration = .25, msg_speed = .075, msg_delay = 1;
-        tl.to('.proc-detail', 1, { opacity: 1, delay: .75 })
-          .to(proc_segments[0], shape_duration, { opacity: 1, x: -157, y: -357, rotation: 360 }, 'step1')
-          .staggerTo('.proc-detail .msg[step=1] .dest .header span', msg_duration, { opacity: 1 }, msg_speed)
-          .staggerTo('.proc-detail .msg[step=1] .dest .content span', msg_duration, { opacity: 1 }, msg_speed)
-          .to('.proc-detail .msg[step=1] .dest', .5, { opacity: 0, delay: msg_delay })
-          .to(proc_segments[1], shape_duration, { opacity: 1, x: -347, y: -252, rotation: 360 }, 'step2')
-          .staggerTo('.proc-detail .msg[step=2] .dest .header span', msg_duration, { opacity: 1 }, msg_speed)
-          .staggerTo('.proc-detail .msg[step=2] .dest .content span', msg_duration, { opacity: 1 }, msg_speed)
-          .to('.proc-detail .msg[step=2] .dest', .5, { opacity: 0, delay: msg_delay })
-          .to(proc_segments[2], shape_duration, { opacity: 1, x: -347, y: -33, rotation: 360 }, 'step3')
-          .staggerTo('.proc-detail .msg[step=3] .dest .header span', msg_duration, { opacity: 1 }, msg_speed)
-          .staggerTo('.proc-detail .msg[step=3] .dest .content span', msg_duration, { opacity: 1 }, msg_speed)
-          .to('.proc-detail .msg[step=3] .dest', .5, { opacity: 0, delay: msg_delay })
-          .to(proc_segments[3], shape_duration, { opacity: 1, x: -157, y: 75, rotation: 360 }, 'step4')
-          .staggerTo('.proc-detail .msg[step=4] .dest .header span', msg_duration, { opacity: 1 }, msg_speed)
-          .staggerTo('.proc-detail .msg[step=4] .dest .content span', msg_duration, { opacity: 1 }, msg_speed)
-          .to('.proc-detail .msg[step=4] .dest', .5, { opacity: 0, delay: msg_delay })
+        var tl = new TimelineLite({ onComplete: Page3Callback });
+        if (VIEWPORT_WIDTH >= 768) {
+          var proc_segments = document.getElementsByClassName('proc-segment');
+          var shape_duration = .5, msg_duration = .25, msg_speed = .075, msg_delay = 1;
+          tl.to('.proc-detail', 1, { opacity: 1, delay: .75 })
+            .to(proc_segments[0], shape_duration, { opacity: 1, x: -157, y: -357, rotation: 360 }, 'step1')
+            .staggerTo('.proc-detail .msg[step=1] .dest .header span', msg_duration, { opacity: 1 }, msg_speed)
+            .staggerTo('.proc-detail .msg[step=1] .dest .content span', msg_duration, { opacity: 1 }, msg_speed)
+            .to('.proc-detail .msg[step=1] .dest', .5, { opacity: 0, delay: msg_delay })
+            .to(proc_segments[1], shape_duration, { opacity: 1, x: -347, y: -252, rotation: 360 }, 'step2')
+            .staggerTo('.proc-detail .msg[step=2] .dest .header span', msg_duration, { opacity: 1 }, msg_speed)
+            .staggerTo('.proc-detail .msg[step=2] .dest .content span', msg_duration, { opacity: 1 }, msg_speed)
+            .to('.proc-detail .msg[step=2] .dest', .5, { opacity: 0, delay: msg_delay })
+            .to(proc_segments[2], shape_duration, { opacity: 1, x: -347, y: -33, rotation: 360 }, 'step3')
+            .staggerTo('.proc-detail .msg[step=3] .dest .header span', msg_duration, { opacity: 1 }, msg_speed)
+            .staggerTo('.proc-detail .msg[step=3] .dest .content span', msg_duration, { opacity: 1 }, msg_speed)
+            .to('.proc-detail .msg[step=3] .dest', .5, { opacity: 0, delay: msg_delay })
+            .to(proc_segments[3], shape_duration, { opacity: 1, x: -157, y: 75, rotation: 360 }, 'step4')
+            .staggerTo('.proc-detail .msg[step=4] .dest .header span', msg_duration, { opacity: 1 }, msg_speed)
+            .staggerTo('.proc-detail .msg[step=4] .dest .content span', msg_duration, { opacity: 1 }, msg_speed)
+            .to('.proc-detail .msg[step=4] .dest', .5, { opacity: 0, delay: msg_delay });
+        } else {
+          // pass
+        }
       }
       if (nextSlideIndex == 4) {
         if (IS_PAGE4_ANIMATED) return;
@@ -69,20 +113,29 @@ $(document).ready(function() {
     // console.log('callback - particles.js config loaded');
   });
 
-  $('input, textarea').on('focus', function() {
-    $('#menu').addClass('typing');
-  }).on('blur', function() {
-    $('#menu').removeClass('typing');
-  });
-
-  // section1Init();
   section2Init();
   section3Init();
   section5Init();
 });
 
 function section1Init() {
-  var tl = new TimelineLite();
+  var callback = function() {
+    if (VIEWPORT_WIDTH <= 768) {
+      var offset = (VIEWPORT_WIDTH >= 320) ? VIEWPORT_WIDTH - 320 : 0;
+      $('.fb-page').attr({
+        'data-height': 500,
+        'data-width': 320 + offset
+      });
+    }
+    (function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/zh_TW/sdk.js#xfbml=1&version=v2.8&appId=1677661819185560";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+  }
+  var tl = new TimelineLite({onComplete: callback});
   var titles = document.querySelectorAll('#page1 .image-title');
   tl.set(titles[1], { opacity: 1, y: 400, z: 120, transformPerspective: 3, rotationX: 40, scale: 3 })
     .set(titles[0], { scale: .5 })
@@ -91,12 +144,22 @@ function section1Init() {
     .set(titles[1], { transformPerspective: 100, rotationX: 0, y: 15, z: 0, scale: .5 })
     .to(titles[0], 1.2, { opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.5), delay: .2 })
     .to(titles[1], 1.2, { opacity: 1, scale: 1, ease: Elastic.easeOut.config(1, 0.5) }, '-=1')
-    .to('#menu', 1.2, { opacity: 1, y: 0, ease: Power3.easeOut }, '-=1.2');
+    .to('#menu', 1.2, { opacity: 1, y: 0, ease: Power3.easeOut }, '-=1.2')
+    .to('.chat-panel', .85, { opacity: 1, y: 0 });
 }
 
 function section2Init() {
-  var $source = $('.proc-detail .msg .source');
-  var $dest = $('.proc-detail .msg .dest');
+  splitChar($('.service-container h1.title .source'), $('.service-container h1.title .dest'));
+}
+
+function section3Init() {
+  splitChar($('.proc-container h1.title .source'), $('.proc-container h1.title .dest'));
+  splitChar($('.proc-container-mobile h1.title .source'), $('.proc-container-mobile h1.title .dest'));
+  splitChar($('.intro-container h1.title .source'), $('.intro-container h1.title .dest'));
+  splitChar($('.tech-container h1.title .source'), $('.tech-container h1.title .dest'));
+
+  $source = $('.proc-detail .msg .source');
+  $dest = $('.proc-detail .msg .dest');
   for(var $i = 0; $i < $source.length; $i++) {
     var source = $source[$i], dest = $dest[$i];
     splitChar($(source).find('p.header'), $(dest).find('p.header'));
@@ -127,10 +190,6 @@ function section2Init() {
       }
     });
   }
-}
-
-function section3Init() {
-
 }
 
 function section4Init() {
@@ -199,6 +258,15 @@ function section4Init() {
     // Firefox
     projects.addEventListener("DOMMouseScroll", mouseWheelHandler, false);
 
+    $('#demo-video').attr('src', 'https://www.youtube.com/embed/' + video_list[0].id);
+    if (VIEWPORT_WIDTH <= 768) {
+      var offset = VIEWPORT_WIDTH - 320;
+      $('#demo-video').attr({width: 280 + offset, height: 200});
+    }
+    $('#demo-video').mediaelementplayer({
+      features: ['playpause', 'current', 'progress', 'duration', 'volume']
+    });
+
     var callback = function() {
       video_ul.find('.project-item:first-child').each(function() {
         $(this).find('.project-link').click();
@@ -207,9 +275,11 @@ function section4Init() {
     var tl1 = new TimelineLite({onComplete: callback}),
       tl2 = new TimelineLite({onComplete: callback});
     tl1.to('#projects-mb', .65, { y: 0, delay: 1 })
-      .staggerTo('#projects-mb .project-item', .35, { opacity: 1, y: 0 }, .12, '-=0.8');
+      .staggerTo('#projects-mb .project-item', .35, { opacity: 1, y: 0 }, .12, '-=0.8')
+      .to('.video-container', 1, { opacity: 1 });
     tl2.to('#projects-pc', .65, { x: 0, delay: 1 })
-      .staggerTo('#projects-pc .project-item', .35, { opacity: 1, x: 0 }, .12, '-=0.8');
+      .staggerTo('#projects-pc .project-item', .35, { opacity: 1, x: 0 }, .12, '-=0.8')
+      .to('.video-container', 1, { opacity: 1 });
   });
 }
 
@@ -259,6 +329,11 @@ function section5Init() {
     });
   };
   handleSendMail();
+  $('input, textarea').on('focus', function() {
+    $('#menu').addClass('typing');
+  }).on('blur', function() {
+    $('#menu').removeClass('typing');
+  });
 }
 
 function splitChar($source, $target) {
@@ -278,19 +353,10 @@ function changeVideo(element, video, is_init) {
 
   var callback = function() {
     var msg_duration = .25, msg_speed = .075, msg_delay = 1;
-    $('#demo-video').mediaelementplayer({
-      success: function(player, node) {
-        console.log("player: ", player);
-        console.log("node: ", node);
-        // Optional
-        // $(player).closest('.mejs__container').attr('lang', 'zh');
-        // More code
-        // var playerId = $('#demo-video').closest('.mejs__container').attr('id');
-        // or $('#mediaplayer').closest('.mejs-container').attr('id') in "legacy" stylesheet
-
-        // var player = mejs.players[playerId];
-      }
-    });
+    var player = mejs.players['mep_0'];
+    player.setSrc('https://www.youtube.com/embed/' + video.id);
+    player.setPoster('');
+    player.load();
 
     var vd = $('.video-description');
     vd.find('.source .title').text(video.title);
@@ -333,5 +399,13 @@ function changeTopLogo(nextIndex) {
     $('.top-static-bg').addClass('bright');
   } else {
     $('.top-static-bg').removeClass('bright');
+  }
+}
+
+function changeMenu(nextIndex) {
+  if (nextIndex % 2 === 0) {
+    $('#menu').addClass('bright');
+  } else {
+    $('#menu').removeClass('bright');
   }
 }

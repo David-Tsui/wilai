@@ -25,15 +25,26 @@ h1, h2, h3, h4,
 }
 
 h1 {
-  font-size: 3rem;
-}
-
-h2 {
-  font-size: 2.4rem;
+  font-size: 2.5rem;
+  &.title {
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    // border-bottom: 1px solid #898989;
+    .line {
+      width: 100%;
+      height: 1px;
+      background-color: #898989;
+      margin-top: 1rem;
+    }
+  }
 }
 
 h3 {
   font-size: 1.8rem;
+  &.title {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #898989;
+  }
 }
 
 h4 {
@@ -58,6 +69,10 @@ input, textarea {
 
 textarea {
   resize: none;
+}
+
+.source {
+  display: none;
 }
 
 #loading {
@@ -172,9 +187,9 @@ $menu-height: 3.5rem;
     flex: 1;
     @include EasyCenter();
     text-align: center;
-    // @include linear-gradient(#474747,#000);
     background: #10121b;
     height: $menu-height;
+    // transition: .85s;
     &::before {
       @include AbsElem($pseudo: true);
       width: 0;
@@ -187,6 +202,7 @@ $menu-height: 3.5rem;
       border-bottom-color: #10121b;
       border-width: 20px;
       pointer-events: none;
+      // transition: border .85s;
     }
     a {
       display: block;
@@ -204,7 +220,13 @@ $menu-height: 3.5rem;
   }
   &.bright {
     li {
-      background: #fff;
+      background: #e9e9e9;
+      &::before {
+        border-bottom-color: #e9e9e9;
+      }
+      a {
+        color: #000;
+      }
     }
   }
 }
@@ -221,7 +243,7 @@ $menu-height: 3.5rem;
   &:nth-child(odd) {
     background: url($img_path + "bg_light.png") 0 0 no-repeat;
     background-size: cover;
-    color: #444;
+    color: #222;
   }
   &:nth-child(even) {
     background: url($img_path + "bg_dark.png") 0 0 no-repeat;
@@ -255,36 +277,67 @@ iframe {
   overflow: hidden;
 }
 
-.embededchat-facebook-show-image-container {
-  height: $menu-height !important;
-}
-
-#embededchat-facebook-container {
-  left: auto !important;
-  right: 1rem !important;
-}
-
-#embededchat-facebook-show-button {
-  display: block !important;
-  position: fixed;
-  left: auto;
+.chat-panel {
+  @include EasyCenter();
+  justify-content: space-around;
+  position: absolute;
+  bottom: 56px;
   right: 0;
-  width: $menu-height !important;
-  transition: .4s;
-  &.active {
-    right: 1rem;
+  width: 180px;
+  height: 30px;
+  background-color: #0084ff;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0;
+  transform: translateY(56px);
+  z-index: 20;
+  &-logo {
+    width: 30px;
+    height: 30px;
+    img {
+      width: 100%;
+    }
+  }
+  &-title {
+    padding-right: 10px;
+    span:last-child {
+      display: none;
+    }
+  }
+  &:hover {
+    background-color: #399af4;
   }
 }
 
-#embedded-chat-facebook-side-text {
+.chat-box {
   display: none;
+  position: absolute;
+  background-color: #fff;
+  bottom: 56px;
+  right: 5px;
+  width: 280px;
+  height: 390px;
+  overflow: hidden;
+  z-index: 100;
+  &-title  {
+    background-color: #0084ff;
+    text-align: center;
+    height: 28px;
+    line-height: 28px;
+    color: #fff;
+    cursor: pointer;
+    &:hover {
+      background-color: #0557a3;
+    }
+  }
 }
-
-#embededchat-facebook-logo {
-  width: 36px !important;
-  height: 36px !important;
-  background-size: cover !important;
-  margin-top: 4px !important;
+.fb-page.fb_iframe_widget {
+  // iframe {
+  //   position: absolute;
+  //   bottom: 75px;
+  //   right: 0;
+  //   z-index: 100;
+  // }
 }
 
 .mejs__overlay-button {
@@ -307,6 +360,9 @@ iframe {
 }
 
 @media (max-width: 768px) {
+  h1.title {
+    font-size: 2rem;
+  }
   .uil-ripple-css {
     width: 160px;
     height: 160px;
@@ -330,9 +386,38 @@ iframe {
       }
     }
   }
+  .chat-panel {
+    left: 15px;
+    bottom: 75px;
+    width: 90px;
+    &-title {
+      span:first-child {
+        display: none;
+      }
+      span:last-child {
+        display: inline-block;
+      }
+    }
+  }
+  .chat-box {
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: auto;
+    &-title {
+      height: 42px;
+      line-height: 42px;
+      font-size: 1.2rem;
+    }
+  }
 }
 
 @media (max-width: 550px) {
+  h1.title {
+    font-size: 1.75rem;
+  }
   .uil-ripple-css {
     width: 120px;
     height: 120px;
